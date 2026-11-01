@@ -119,11 +119,7 @@ describe('big mode', () => {
     expect(rows).toHaveLength(HIRES_ROWS);
     expect(rows[0]).toHaveLength(HIRES_COLS);
     expect(rows[0][0]).toEqual({ ch: ' ', fg: 0x30, bg: 0x30 }); // solid: background colour only
-    // A 4/4 split may come out as either glyph with the colours swapped; both draw the same picture.
-    expect([
-      JSON.stringify({ ch: '▀', fg: 0x30, bg: 0x0f }),
-      JSON.stringify({ ch: '▄', fg: 0x0f, bg: 0x30 }),
-    ]).toContain(JSON.stringify(rows[0][1]));
+    expect(rows[0][1]).toEqual({ ch: '▀', fg: 0x30, bg: 0x0f });
     expect(rows[0][2]).toEqual({ ch: '⠁', fg: 0x30, bg: 0x0f });
     expect(rows[0][3]).toEqual({ ch: '⠁', fg: 0x0f, bg: 0x30 });
     const oct = cellify(px, true);
