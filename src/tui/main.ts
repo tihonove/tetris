@@ -1,21 +1,33 @@
 /**
  * Console NES Tetris: the same engine, rendered with block glyphs.
  *
- *   npm run tui              fullwidth text (needs a font with CJK fullwidth forms)
- *   npm run tui -- --ascii   plain ASCII letters
- *   npm run tui -- --dump N  headless: run N frames and print the screen (for tests)
+ *   npm run tui                big picture (128x60 cells) when the terminal is large enough
+ *   npm run tui -- --small     one tile per two cells (64x30), fullwidth text
+ *   npm run tui -- --big       force the big picture
+ *   npm run tui -- --octants   big picture with Unicode 16 octant characters (needs a recent font)
+ *   npm run tui -- --ascii     small mode with plain ASCII letters
+ *   npm run tui -- --dump N    headless: run N frames and print the screen (for tests)
  */
 import { NesTetris, bcdToNumber, numberToBcd } from '../engine/tetris';
 import { BTN_START } from '../data/tables';
 import { TerminalInput } from './input';
-import { composeCells, renderPlain, renderRow, ROWS } from './screen';
+import { composeCells, renderPlain, renderRow, screenSize } from './screen';
+import { HIRES_COLS, HIRES_ROWS } from './hires';
 import type { TermStyle } from './glyphs';
 
 const FRAME_MS = 1000 / 60.0988;
 const MAX_LEVEL = 19;
 
 const args = process.argv.slice(2);
-const style: TermStyle = { fullwidth: !args.includes('--ascii') };
+const fitsBig = (process.stdout.columns ?? 0) >= HIRES_COLS && (process.stdout.rows ?? 0) >= HIRES_ROWS + 1;
+const wantSmall = args.includes('--small') || args.includes('--ascii');
+const wantBig = args.includes('--big') || args.includes('--octants');
+const style: TermStyle = {
+  fullwidth: !args.includes('--ascii'),
+  mode: wantBig || (!wantSmall && fitsBig) ? 'big' : 'small',
+  octants: args.includes('--octants'),
+};
+const { rows: ROWS } = screenSize(style);
 const dumpIndex = args.indexOf('--dump');
 
 function dump(frames: number): void {

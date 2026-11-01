@@ -6,6 +6,7 @@ import { parseKeys, TerminalInput } from './input';
 import { renderPlain } from './screen';
 
 const PAL = [0x0f, 0x30, 0x21, 0x12];
+const SMALL = { fullwidth: false, mode: 'small', octants: false } as const;
 
 describe('glyphs', () => {
   it('maps font tiles to characters', () => {
@@ -19,20 +20,20 @@ describe('glyphs', () => {
   });
 
   it('renders block tiles with the level colours', () => {
-    const [l, r] = tileCells(0x7b, PAL, { fullwidth: false });
+    const [l, r] = tileCells(0x7b, PAL, SMALL);
     expect(l.fg).toBe(0x30); // white interior
     expect(l.bg).toBe(0x12); // colour-3 edge
     expect(r.ch).toBe('▌');
-    const [l2] = tileCells(0x7c, PAL, { fullwidth: false });
+    const [l2] = tileCells(0x7c, PAL, SMALL);
     expect(l2.bg).toBe(0x21);
-    const [, r3] = tileCells(0x7d, PAL, { fullwidth: false });
+    const [, r3] = tileCells(0x7d, PAL, SMALL);
     expect(r3.fg).toBe(0x12);
   });
 
   it('renders borders as box drawing and blanks as spaces', () => {
-    expect(tileCells(0x38, PAL, { fullwidth: false }).map((c) => c.ch).join('')).toBe('╔═');
-    expect(tileCells(0x3c, PAL, { fullwidth: false }).map((c) => c.ch).join('')).toBe(' ║');
-    expect(tileCells(0xef, PAL, { fullwidth: false }).map((c) => c.ch).join('')).toBe('  ');
+    expect(tileCells(0x38, PAL, SMALL).map((c) => c.ch).join('')).toBe('╔═');
+    expect(tileCells(0x3c, PAL, SMALL).map((c) => c.ch).join('')).toBe(' ║');
+    expect(tileCells(0xef, PAL, SMALL).map((c) => c.ch).join('')).toBe('  ');
   });
 });
 
@@ -41,7 +42,7 @@ describe('screen', () => {
     const g = new NesTetris();
     g.startGame(0);
     for (let i = 0; i < 10; i++) g.frame(0);
-    const lines = renderPlain(g, { fullwidth: false });
+    const lines = renderPlain(g, SMALL);
     expect(lines).toHaveLength(30);
     expect(lines.every((l) => [...l].length === 64)).toBe(true);
     expect(lines[3]).toContain('L I N E S - 0 0 0');
@@ -60,7 +61,7 @@ describe('screen', () => {
     g.frame(BTN_START);
     g.frame(0);
     expect(g.paused).toBe(true);
-    const lines = renderPlain(g, { fullwidth: false });
+    const lines = renderPlain(g, SMALL);
     expect(lines[15]).toContain('P A U S E');
     expect(lines[3].trim()).toBe('');
   });
@@ -97,5 +98,44 @@ describe('terminal input', () => {
     expect(input.poll(34) & BTN_A).toBe(0);
     input.feed('x', 400);
     expect(input.poll(400) & BTN_A).toBe(BTN_A);
+  });
+});
+
+describe('big mode', () => {
+  it('maps 2x4 patterns to blocks, Braille or octants', async () => {
+    const { cellify, HIRES_COLS, HIRES_ROWS } = await import('./hires');
+    const { WIDTH, HEIGHT } = await import('./pixels');
+    const px = new Uint8Array(WIDTH * HEIGHT).fill(0x0f);
+    // cell (0,0): solid colour 0x30
+    for (let y = 0; y < 4; y++) for (let x = 0; x < 2; x++) px[y * WIDTH + x] = 0x30;
+    // cell (1,0): top half 0x30
+    for (let y = 0; y < 2; y++) for (let x = 2; x < 4; x++) px[y * WIDTH + x] = 0x30;
+    // cell (2,0): single top-left pixel 0x30
+    px[4] = 0x30;
+    // cell (3,0): all but the top-left pixel 0x30 (inverted Braille)
+    for (let y = 0; y < 4; y++) for (let x = 6; x < 8; x++) px[y * WIDTH + x] = 0x30;
+    px[6] = 0x0f;
+    const rows = cellify(px, false);
+    expect(rows).toHaveLength(HIRES_ROWS);
+    expect(rows[0]).toHaveLength(HIRES_COLS);
+    expect(rows[0][0]).toEqual({ ch: ' ', fg: 0x30, bg: 0x30 }); // solid: background colour only
+    expect(rows[0][1]).toEqual({ ch: '▀', fg: 0x30, bg: 0x0f });
+    expect(rows[0][2]).toEqual({ ch: '⠁', fg: 0x30, bg: 0x0f });
+    expect(rows[0][3]).toEqual({ ch: '⠁', fg: 0x0f, bg: 0x30 });
+    const oct = cellify(px, true);
+    expect(oct[0][0].ch).toBe(' ');
+    expect(oct[0][2].ch).toBe(String.fromCodePoint(0x1cea8)); // left half upper one quarter
+  });
+
+  it('renders the whole screen at 128x60 with the text and the piece', () => {
+    const g = new NesTetris();
+    g.startGame(0);
+    for (let i = 0; i < 10; i++) g.frame(0);
+    const lines = renderPlain(g, { fullwidth: false, mode: 'big', octants: false });
+    expect(lines).toHaveLength(60);
+    expect(lines.every((l) => [...l].length === 128)).toBe(true);
+    // "LINES-" sits in tile row 3, columns 13..18 -> cell rows 6-7, columns 52..75
+    const title = lines.slice(6, 8).map((l) => l.slice(52, 76)).join('');
+    expect(title.replace(/\s/g, '').length).toBeGreaterThan(10);
   });
 });
