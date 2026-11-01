@@ -1,5 +1,7 @@
 # NES Tetris (clone)
 
+Play: https://tihonove.github.io/tetris/
+
 A frame-exact re-creation of Nintendo's NES Tetris (USA, 1989), Type A, one player,
 running in the browser. TypeScript + React, no canvas: the 256x240 picture is a grid of
 8x8 tiles rendered as SVG data URIs, so palettes swap per level the way the PPU does.
