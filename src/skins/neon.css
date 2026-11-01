@@ -1,0 +1,187 @@
+/* B · Neon Glass: dark ground, frosted cards, one glowing colour per piece type. */
+
+.skin-neon {
+  background: #070a12;
+  font-family: 'Chakra Petch', sans-serif;
+  color: #eef2ff;
+  --curtain: rgba(192, 132, 252, 0.45);
+}
+
+.skin-neon .fx-1 {
+  display: block;
+  inset: auto;
+  left: 330px;
+  top: -120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(192, 132, 252, 0.14);
+  filter: blur(90px);
+}
+
+.skin-neon .col-left, .skin-neon .col-right {
+  width: 200px;
+  gap: 16px;
+}
+
+.skin-neon .col-mid {
+  gap: 16px;
+}
+
+.skin-neon .block {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.skin-neon .lines {
+  background: none;
+  border: none;
+  box-shadow: none;
+  gap: 10px;
+}
+
+.skin-neon .board {
+  padding: 10px;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.skin-neon .stats, .skin-neon .score, .skin-neon .next, .skin-neon .level {
+  padding: 20px;
+}
+
+.skin-neon .score, .skin-neon .level {
+  gap: 6px;
+}
+
+.skin-neon .score .lbl + .val + .lbl {
+  margin-top: 12px;
+}
+
+.skin-neon .next {
+  gap: 14px;
+}
+
+.skin-neon .lbl {
+  font-size: 11px;
+  color: #7c8aa5;
+  font-weight: 700;
+}
+
+.skin-neon .val {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.skin-neon .lines .val {
+  font-size: 26px;
+}
+
+.skin-neon .level .val {
+  font-size: 32px;
+}
+
+.skin-neon .stat .num {
+  font-size: 15px;
+  font-weight: 700;
+  color: #b9c3d9;
+}
+
+.skin-neon .m-grid {
+  gap: 2px;
+}
+
+.skin-neon .meter {
+  display: flex;
+  gap: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.skin-neon .meter .seg {
+  height: 4px;
+}
+
+.skin-neon .meter .seg.on {
+  background: #c084fc;
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.8);
+}
+
+/* Blocks. */
+.skin-neon .c {
+  border-radius: 4px;
+}
+
+.skin-neon .c.e {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.045);
+}
+
+/* Colour per piece type; blocks of unknown type fall back to violet. */
+.skin-neon .c.k1, .skin-neon .c.k2, .skin-neon .c.k3 { --p: 192, 132, 252; }
+.skin-neon .c.t-I { --p: 34, 211, 238; }
+.skin-neon .c.t-O { --p: 250, 204, 21; }
+.skin-neon .c.t-T { --p: 192, 132, 252; }
+.skin-neon .c.t-S { --p: 74, 222, 128; }
+.skin-neon .c.t-Z { --p: 248, 113, 113; }
+.skin-neon .c.t-J { --p: 96, 165, 250; }
+.skin-neon .c.t-L { --p: 251, 146, 60; }
+
+.skin-neon .c.k1, .skin-neon .c.k2, .skin-neon .c.k3 {
+  background: rgba(var(--p), 0.22);
+  border: 1px solid rgba(var(--p), 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 12px rgba(var(--p), 0.35);
+}
+
+.skin-neon .c.act {
+  background: rgba(var(--p), 0.65);
+  border-color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 28px rgba(var(--p), 0.8), 0 0 60px rgba(var(--p), 0.35);
+  z-index: 1;
+}
+
+.skin-neon .c.ghost {
+  background: transparent;
+  border: 1px dashed rgba(var(--p), 0.45);
+  box-shadow: none;
+}
+
+.skin-neon .m, .skin-neon .n {
+  border-radius: 2px;
+}
+
+.skin-neon .n {
+  border-radius: 4px;
+}
+
+.skin-neon .next {
+  border-color: rgba(192, 132, 252, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 28px rgba(192, 132, 252, 0.22);
+}
+
+.skin-neon .next .lbl {
+  color: #c084fc;
+}
+
+.skin-neon .m.t-I, .skin-neon .n.t-I { background: #22d3ee; }
+.skin-neon .m.t-O, .skin-neon .n.t-O { background: #facc15; }
+.skin-neon .m.t-T, .skin-neon .n.t-T { background: #c084fc; }
+.skin-neon .m.t-S, .skin-neon .n.t-S { background: #4ade80; }
+.skin-neon .m.t-Z, .skin-neon .n.t-Z { background: #f87171; }
+.skin-neon .m.t-J, .skin-neon .n.t-J { background: #60a5fa; }
+.skin-neon .m.t-L, .skin-neon .n.t-L { background: #fb923c; }
+
+.skin-neon .n.k1, .skin-neon .n.k2, .skin-neon .n.k3 {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+.skin-neon .pause {
+  font-weight: 700;
+  color: #c084fc;
+  text-shadow: 0 0 16px rgba(192, 132, 252, 0.8);
+}

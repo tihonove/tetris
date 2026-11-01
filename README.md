@@ -27,6 +27,18 @@ Quick start: pick a level with the arrow keys or digits, press Enter. Enter paus
 After the game-over curtain, Enter returns to the level selector. Select toggles the
 NEXT box, as on the original. There is no music; only the original sound effects.
 
+## Skins
+
+The `skin` menu under the screen switches between the original NES picture and eight
+looks drawn from the same game state (board, falling piece, statistics, NEXT, score):
+NES Refined, Neon Glass, Mono Swiss, Synthwave, Phosphor CRT, Toy / Tactile,
+Holo Wireframe and Dot-matrix LCD. Skins add an optional ghost piece (`ghost` button)
+showing where the piece will land; the original picture has none. The game itself is
+untouched: the skins read the same nametable and sprites the NES renderer draws, so
+timing, line-clear animation, curtain and the Tetris flash are frame-identical. Skins
+that colour blocks per piece type use a piece-type array the engine keeps alongside the
+tiles (the NES only stores the tile).
+
 ## What is reproduced exactly
 
 Everything below follows the disassembled program, frame for frame:
@@ -58,6 +70,8 @@ and the 300000+ ending animation.
 - `src/data/gfx.ts` - generated: tiles, nametable, attribute table, master palette.
 - `src/audio/apu.ts`, `src/audio/sfx.ts` - APU model and sound effect scripts.
 - `src/render/Screen.tsx`, `src/render/tiles.ts` - React picture, tile image cache.
+- `src/render/view.ts`, `src/render/SkinScreen.tsx` - skin-neutral view of the state, DOM layout.
+- `src/skins/` - skin definitions and one CSS file per skin.
 - `src/ui/App.tsx` - loop, input, level select, options.
 
 Sources: CelestialAmber/TetrisNESDisasm (ejona86/taus), meatfighter.com/nintendotetrisai,

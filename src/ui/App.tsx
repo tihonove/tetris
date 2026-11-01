@@ -4,6 +4,8 @@ import { BTN_START } from '../data/tables';
 import { NesTetris, bcdToNumber, numberToBcd } from '../engine/tetris';
 import { Input } from '../input';
 import { Screen } from '../render/Screen';
+import { SkinScreen } from '../render/SkinScreen';
+import { SKINS, SKIN_HEIGHT, SKIN_WIDTH, ensureFonts } from '../skins';
 
 /** NTSC NES frame period. */
 const FRAME_MS = 1000 / 60.0988;
@@ -11,6 +13,10 @@ const MAX_LEVEL = 19;
 const TOP_SCORE_KEY = 'nes-tetris.topScore';
 const LEVEL_KEY = 'nes-tetris.level';
 const ASPECT_KEY = 'nes-tetris.aspect';
+const SKIN_KEY = 'nes-tetris.skin';
+const GHOST_KEY = 'nes-tetris.ghost';
+/** The original NES picture, as opposed to one of the skins. */
+const ORIGINAL = 'original';
 /** NTSC NES pixels are 8:7 (wider than tall) on a 4:3 CRT. */
 const CRT_PIXEL_ASPECT = 8 / 7;
 
@@ -30,6 +36,28 @@ function loadNumber(key: string, fallback: number): number {
 
 function saveNumber(key: string, value: number): void {
   try { localStorage.setItem(key, String(value)); } catch { /* ignore */ }
+}
+
+function loadString(key: string, fallback: string): string {
+  try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; }
+}
+
+function saveString(key: string, value: string): void {
+  try { localStorage.setItem(key, value); } catch { /* ignore */ }
+}
+
+/** Zoom that fits a skin's 960x720 stage into the window, leaving room for the help line. */
+function useFitScale(width: number, height: number): number {
+  const compute = (): number => Math.min(window.innerWidth / width, (window.innerHeight - 48) / height);
+  const [scale, setScale] = useState(compute);
+  useEffect(() => {
+    const onResize = (): void => setScale(compute());
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height]);
+  return scale;
 }
 
 /**
@@ -101,10 +129,16 @@ export function App() {
   const [frame, setFrame] = useState(0);
   const [muted, setMuted] = useState(false);
   const [crtAspect, setCrtAspect] = useState(() => loadNumber(ASPECT_KEY, 0) === 1);
+  const [skinId, setSkinId] = useState(() => loadString(SKIN_KEY, ORIGINAL));
+  const [ghost, setGhost] = useState(() => loadNumber(GHOST_KEY, 1) === 1);
+  const skin = SKINS.find((s) => s.id === skinId);
   const { pxx, pxy } = useScale(crtAspect ? CRT_PIXEL_ASPECT : 1);
+  const zoom = useFitScale(SKIN_WIDTH, SKIN_HEIGHT);
   const stageRef = useRef<HTMLDivElement>(null);
-  useDevicePixelSnap(stageRef, [pxx, pxy, phase]);
+  useDevicePixelSnap(stageRef, [pxx, pxy, phase, skinId]);
   useEffect(() => { saveNumber(ASPECT_KEY, crtAspect ? 1 : 0); }, [crtAspect]);
+  useEffect(() => { saveString(SKIN_KEY, skinId); if (skin) ensureFonts(skin); }, [skinId, skin]);
+  useEffect(() => { saveNumber(GHOST_KEY, ghost ? 1 : 0); }, [ghost]);
 
   const start = useCallback((): void => {
     const g = gameRef.current!;
@@ -185,28 +219,39 @@ export function App() {
 
   useEffect(() => { sfxRef.current.setVolume(muted ? 0 : 0.5); }, [muted]);
 
-  return (
-    <div className="app">
-      <div className="stage" ref={stageRef} style={{ width: 256 * pxx, height: 240 * pxy }}>
-        <Screen game={game} frame={frame} pxx={pxx} pxy={pxy} />
-        {phase === 'select' && (
-          <div className="overlay" style={{ fontSize: Math.max(8, 8 * pxy) }}>
-            <div className="menu">
-              <div className="menu-title">A-TYPE</div>
-              <div className="menu-level">
-                LEVEL <span className="menu-value">{String(level).padStart(2, '0')}</span>
-              </div>
-              <div className="menu-hint">
-                {'← → ± 1   ↑ ↓ ± 10   0-9'}
-              </div>
-              <div className="menu-hint">PUSH ENTER</div>
-              {game.gameOverStarted && (
-                <div className="menu-hint">LAST {String(game.scoreValue).padStart(6, '0')}</div>
-              )}
-            </div>
-          </div>
+  const menu = phase === 'select' && (
+    <div className="overlay" style={{ fontSize: skin ? 24 : Math.max(8, 8 * pxy) }}>
+      <div className="menu">
+        <div className="menu-title">A-TYPE</div>
+        <div className="menu-level">
+          LEVEL <span className="menu-value">{String(level).padStart(2, '0')}</span>
+        </div>
+        <div className="menu-hint">
+          {'← → ± 1   ↑ ↓ ± 10   0-9'}
+        </div>
+        <div className="menu-hint">PUSH ENTER</div>
+        {game.gameOverStarted && (
+          <div className="menu-hint">LAST {String(game.scoreValue).padStart(6, '0')}</div>
         )}
       </div>
+    </div>
+  );
+
+  return (
+    <div className="app">
+      {skin ? (
+        <div className="stage" style={{ width: SKIN_WIDTH * zoom, height: SKIN_HEIGHT * zoom }}>
+          <div className="zoom" style={{ width: SKIN_WIDTH, height: SKIN_HEIGHT, transform: `scale(${zoom})` }}>
+            <SkinScreen game={game} frame={frame} skin={skin} ghost={ghost} />
+            {menu}
+          </div>
+        </div>
+      ) : (
+        <div className="stage" ref={stageRef} style={{ width: 256 * pxx, height: 240 * pxy }}>
+          <Screen game={game} frame={frame} pxx={pxx} pxy={pxy} />
+          {menu}
+        </div>
+      )}
       <div className="help">
         <span>{'← → ↓'} move</span>
         <span>X / K = A (rotate ↻)</span>
@@ -214,9 +259,22 @@ export function App() {
         <span>Enter = Start (pause)</span>
         <span>Space = Select (next piece)</span>
         <button type="button" onClick={() => setMuted((m) => !m)}>{muted ? 'sound: off' : 'sound: on'}</button>
-        <button type="button" onClick={() => setCrtAspect((a) => !a)} title="NTSC NES pixels are 8:7 on a CRT">
-          {crtAspect ? 'pixels: 8:7 (CRT)' : 'pixels: 1:1 (square)'}
-        </button>
+        {skin ? (
+          <button type="button" onClick={() => setGhost((g) => !g)} title="Show where the piece will land">
+            {ghost ? 'ghost: on' : 'ghost: off'}
+          </button>
+        ) : (
+          <button type="button" onClick={() => setCrtAspect((a) => !a)} title="NTSC NES pixels are 8:7 on a CRT">
+            {crtAspect ? 'pixels: 8:7 (CRT)' : 'pixels: 1:1 (square)'}
+          </button>
+        )}
+        <label>
+          skin:{' '}
+          <select value={skinId} onChange={(e) => setSkinId(e.target.value)}>
+            <option value={ORIGINAL}>Original NES</option>
+            {SKINS.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+        </label>
       </div>
     </div>
   );

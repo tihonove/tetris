@@ -1,0 +1,173 @@
+/* E · Phosphor CRT: amber monochrome in a rounded tube, VT323, scanlines and vignette. */
+
+.skin-phosphor {
+  background: #0a0702;
+  font-family: 'VT323', monospace;
+  color: #ffb000;
+  --curtain: rgba(255, 176, 0, 0.55);
+}
+
+.skin-phosphor .shell {
+  inset: 16px;
+  border-radius: 28px;
+  background: #1a1000;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9), 0 0 0 10px #2b2419, 0 0 0 12px #0a0702;
+}
+
+.skin-phosphor .screen {
+  border-radius: 28px;
+}
+
+.skin-phosphor .block {
+  border: 2px solid rgba(255, 176, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 176, 0, 0.25), inset 0 0 10px rgba(255, 176, 0, 0.08);
+}
+
+.skin-phosphor .lines {
+  border: none;
+  box-shadow: none;
+}
+
+.skin-phosphor .board {
+  padding: 6px;
+}
+
+.skin-phosphor .hud {
+  padding: 12px 40px;
+}
+
+.skin-phosphor .lbl, .skin-phosphor .val, .skin-phosphor .num, .skin-phosphor .pause {
+  text-shadow: 0 0 8px rgba(255, 176, 0, 0.75);
+}
+
+.skin-phosphor .lbl {
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+.skin-phosphor .val {
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+.skin-phosphor .lines .lbl, .skin-phosphor .lines .val {
+  font-size: 28px;
+  letter-spacing: 3px;
+}
+
+.skin-phosphor .lines .lbl::after {
+  content: '-';
+}
+
+.skin-phosphor .lines {
+  gap: 0;
+}
+
+.skin-phosphor .level .val {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.skin-phosphor .stats {
+  gap: 10px;
+  padding: 16px;
+}
+
+.skin-phosphor .stat .num {
+  font-size: 24px;
+}
+
+.skin-phosphor .score, .skin-phosphor .next, .skin-phosphor .level {
+  padding: 14px 16px;
+  gap: 2px;
+}
+
+.skin-phosphor .score .lbl + .val + .lbl {
+  margin-top: 8px;
+}
+
+.skin-phosphor .next {
+  gap: 10px;
+}
+
+.skin-phosphor .c.e {
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 0, 0.06);
+}
+
+.skin-phosphor .c.k1 {
+  background: #ffb000;
+  border: 3px solid #1a1000;
+  box-shadow: 0 0 8px rgba(255, 176, 0, 0.5);
+}
+
+.skin-phosphor .c.k3 {
+  background: rgba(255, 176, 0, 0.55);
+  border: 3px solid #1a1000;
+  box-shadow: 0 0 6px rgba(255, 176, 0, 0.3);
+}
+
+.skin-phosphor .c.k2 {
+  background: transparent;
+  border: 3px solid #ffb000;
+  box-shadow: inset 0 0 0 3px #1a1000, inset 0 0 0 6px rgba(255, 176, 0, 0.6), 0 0 6px rgba(255, 176, 0, 0.3);
+}
+
+.skin-phosphor .c.act {
+  background: #ffd56a;
+  border-color: #1a1000;
+  box-shadow: 0 0 22px rgba(255, 176, 0, 0.9), 0 0 50px rgba(255, 176, 0, 0.4);
+  z-index: 1;
+}
+
+.skin-phosphor .c.ghost {
+  background: transparent;
+  border: 2px dotted rgba(255, 176, 0, 0.5);
+  box-shadow: none;
+}
+
+.skin-phosphor .m.k1 { background: #ffb000; }
+.skin-phosphor .m.k3 { background: rgba(255, 176, 0, 0.55); }
+.skin-phosphor .m.k2 { border: 2px solid #ffb000; }
+
+.skin-phosphor .next {
+  border-color: #ffd56a;
+  box-shadow: 0 0 18px rgba(255, 176, 0, 0.5), inset 0 0 14px rgba(255, 176, 0, 0.15);
+}
+
+.skin-phosphor .next .lbl {
+  color: #ffd56a;
+}
+
+.skin-phosphor .n.k1 {
+  background: #ffb000;
+  border: 2px solid #1a1000;
+  box-shadow: 0 0 8px rgba(255, 176, 0, 0.4);
+}
+
+.skin-phosphor .n.k3 {
+  background: rgba(255, 176, 0, 0.55);
+  border: 2px solid #1a1000;
+}
+
+.skin-phosphor .n.k2 {
+  border: 3px solid #ffb000;
+  box-shadow: inset 0 0 0 2px #1a1000, inset 0 0 0 5px rgba(255, 176, 0, 0.6), 0 0 8px rgba(255, 176, 0, 0.4);
+}
+
+.skin-phosphor .pause {
+  font-size: 32px;
+}
+
+.skin-phosphor .fx-2 {
+  display: block;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0 2px, rgba(0, 0, 0, 0) 2px 4px);
+}
+
+.skin-phosphor .fx-3 {
+  display: block;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.skin-phosphor.flash .grid {
+  box-shadow: 0 0 0 4px #ffd56a, 0 0 40px rgba(255, 176, 0, 0.9);
+}

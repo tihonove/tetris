@@ -1,0 +1,155 @@
+/* G · Holo Wireframe: deep blue, hatched cyan outlines, HUD corner brackets, a faint grid. */
+
+.skin-holo {
+  background: #020b18;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #e6faff;
+  --curtain: rgba(155, 232, 255, 0.45);
+}
+
+.skin-holo .fx-1 {
+  display: block;
+  background:
+    repeating-linear-gradient(0deg, rgba(155, 232, 255, 0.045) 0 1px, rgba(0, 0, 0, 0) 1px 40px),
+    repeating-linear-gradient(90deg, rgba(155, 232, 255, 0.045) 0 1px, rgba(0, 0, 0, 0) 1px 40px);
+}
+
+.skin-holo .block {
+  border: 1px solid rgba(155, 232, 255, 0.35);
+}
+
+.skin-holo .block::before, .skin-holo .block::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #9be8ff;
+}
+
+.skin-holo .block::before {
+  left: -1px;
+  top: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.skin-holo .block::after {
+  right: -1px;
+  bottom: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.skin-holo .lines {
+  border: none;
+}
+
+.skin-holo .lines::before, .skin-holo .lines::after {
+  display: none;
+}
+
+.skin-holo .board {
+  background: rgba(155, 232, 255, 0.02);
+}
+
+.skin-holo .lbl {
+  font-size: 11px;
+  color: rgba(155, 232, 255, 0.6);
+  font-weight: 600;
+}
+
+.skin-holo .val {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-shadow: 0 0 10px rgba(155, 232, 255, 0.5);
+}
+
+.skin-holo .lines .val::after {
+  content: '// A-TYPE';
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(155, 232, 255, 0.6);
+  text-shadow: none;
+  margin-left: 24px;
+}
+
+.skin-holo .level .val {
+  font-size: 32px;
+}
+
+.skin-holo .stat .num {
+  font-size: 14px;
+}
+
+.skin-holo .meter {
+  display: flex;
+}
+
+.skin-holo .meter .seg {
+  background: rgba(155, 232, 255, 0.2);
+}
+
+.skin-holo .meter .seg.on {
+  background: #9be8ff;
+}
+
+.skin-holo .c.e::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 2px;
+  height: 2px;
+  background: rgba(155, 232, 255, 0.22);
+}
+
+.skin-holo .c.k1, .skin-holo .c.k2, .skin-holo .c.k3 {
+  border: 1px solid rgba(155, 232, 255, 0.85);
+  background: repeating-linear-gradient(135deg, rgba(155, 232, 255, 0.16) 0 1px, rgba(155, 232, 255, 0) 1px 6px);
+  box-shadow: inset 0 0 0 1px rgba(2, 11, 24, 1), inset 0 0 0 2px rgba(155, 232, 255, 0.25);
+}
+
+.skin-holo .c.act {
+  background: rgba(155, 232, 255, 0.45);
+  border-color: #fff;
+  box-shadow: 0 0 18px rgba(155, 232, 255, 0.8), inset 0 0 0 1px #fff;
+  z-index: 1;
+}
+
+.skin-holo .c.ghost {
+  border: 1px dashed rgba(155, 232, 255, 0.55);
+  background: transparent;
+  box-shadow: none;
+}
+
+.skin-holo .m.k1, .skin-holo .m.k2, .skin-holo .m.k3 {
+  border: 1px solid rgba(155, 232, 255, 0.85);
+  background: rgba(155, 232, 255, 0.12);
+}
+
+.skin-holo .next {
+  border-color: #9be8ff;
+  background: rgba(155, 232, 255, 0.06);
+  box-shadow: 0 0 22px rgba(155, 232, 255, 0.3);
+}
+
+.skin-holo .next .lbl {
+  color: #e6faff;
+}
+
+.skin-holo .n.k1, .skin-holo .n.k2, .skin-holo .n.k3 {
+  border: 1px solid rgba(155, 232, 255, 0.9);
+  background: repeating-linear-gradient(135deg, rgba(155, 232, 255, 0.18) 0 1px, rgba(155, 232, 255, 0) 1px 5px);
+  box-shadow: 0 0 10px rgba(155, 232, 255, 0.35);
+}
+
+.skin-holo .pause {
+  font-weight: 600;
+  color: #9be8ff;
+  text-shadow: 0 0 10px rgba(155, 232, 255, 0.5);
+}
+
+.skin-holo.flash .grid {
+  box-shadow: 0 0 0 2px #9be8ff, 0 0 40px rgba(155, 232, 255, 0.8);
+}

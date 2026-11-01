@@ -89,3 +89,22 @@ html, body {
   padding: 2px 8px;
   cursor: pointer;
 }
+
+.zoom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.help label {
+  color: #999;
+}
+
+.help select {
+  background: #000;
+  border: 1px solid #555;
+  color: #999;
+  font: inherit;
+  padding: 2px 4px;
+}

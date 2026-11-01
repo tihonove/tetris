@@ -1,0 +1,193 @@
+/* A · NES Refined: the original palette (follows the level via --c1..--c3), Press Start 2P,
+   double-ruled panels, scanlines and a vignette. */
+
+.skin-nes {
+  background: #06081a;
+  font-family: 'Press Start 2P', monospace;
+  color: #fcfcfc;
+  --curtain: var(--c2);
+}
+
+.skin-nes .hud {
+  gap: 36px;
+}
+
+.skin-nes .col-right {
+  gap: 20px;
+}
+
+.skin-nes .col-mid {
+  gap: 18px;
+}
+
+.skin-nes .block {
+  border: 4px solid var(--c2);
+  background: #090c20;
+  box-shadow: 0 0 0 2px #06081a, 0 0 0 4px var(--c3);
+}
+
+.skin-nes .lbl {
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--c2);
+}
+
+.skin-nes .stats .lbl {
+  text-align: center;
+}
+
+.skin-nes .stat .num {
+  font-size: 13px;
+}
+
+.skin-nes .m-grid {
+  width: 48px;
+  gap: 0;
+}
+
+.skin-nes .m {
+  width: 12px;
+  height: 12px;
+}
+
+.skin-nes .lines {
+  padding: 12px 20px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  gap: 0;
+}
+
+.skin-nes .lines .lbl {
+  font-size: 13px;
+  color: #fcfcfc;
+}
+
+.skin-nes .lines .lbl::after {
+  content: '-';
+}
+
+.skin-nes .score, .skin-nes .next, .skin-nes .level {
+  gap: 14px;
+}
+
+.skin-nes .score .val, .skin-nes .next .val {
+  font-size: 14px;
+}
+
+.skin-nes .score .lbl + .val + .lbl {
+  margin-top: 6px;
+}
+
+.skin-nes .next {
+  align-items: center;
+}
+
+.skin-nes .next .lbl {
+  align-self: center;
+}
+
+.skin-nes .n-grid {
+  width: 120px;
+  gap: 0;
+}
+
+.skin-nes .next {
+  border-color: #fcfcfc;
+}
+
+.skin-nes .next .lbl {
+  color: #fcfcfc;
+}
+
+.skin-nes .level {
+  align-items: center;
+}
+
+.skin-nes .level .val {
+  font-size: 16px;
+}
+
+/* Blocks: the three NES tiles. */
+.skin-nes .c.e {
+  background: #090c20;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+
+.skin-nes .c.k1 {
+  background: #fcfcfc;
+  border: 4px solid var(--c3);
+}
+
+.skin-nes .c.k3 {
+  background: var(--c3);
+  border: 3px solid #06081a;
+}
+
+.skin-nes .c.k2 {
+  background: var(--c2);
+  border: 3px solid #06081a;
+}
+
+.skin-nes .c.k2::before, .skin-nes .c.k3::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 6px;
+  height: 6px;
+  background: #fcfcfc;
+}
+
+.skin-nes .c.k1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  background: #fcfcfc;
+}
+
+.skin-nes .c.act {
+  box-shadow: 0 0 22px rgba(60, 188, 252, 0.55), 0 0 4px rgba(252, 252, 252, 0.6);
+  z-index: 1;
+}
+
+.skin-nes .c.ghost {
+  background: transparent;
+  border: 2px dashed rgba(60, 188, 252, 0.45);
+}
+
+.skin-nes .c.ghost::before {
+  display: none;
+}
+
+.skin-nes .c.curtain {
+  background: repeating-linear-gradient(0deg, var(--c3) 0 3px, var(--c2) 3px 6px);
+}
+
+.skin-nes .m.k1 { background: #fcfcfc; border: 2px solid var(--c3); }
+.skin-nes .m.k3 { background: var(--c3); }
+.skin-nes .m.k2 { background: var(--c2); }
+
+.skin-nes .n { position: relative; }
+.skin-nes .n.k1 { background: #fcfcfc; border: 4px solid var(--c3); }
+.skin-nes .n.k3 { background: var(--c3); border: 3px solid #06081a; }
+.skin-nes .n.k2 { background: var(--c2); border: 3px solid #06081a; }
+.skin-nes .n.k2::before, .skin-nes .n.k3::before { content: ''; position: absolute; left: 3px; top: 3px; width: 6px; height: 6px; background: #fcfcfc; }
+.skin-nes .n.k1::before { content: ''; position: absolute; left: 0; top: 0; width: 6px; height: 6px; background: #fcfcfc; }
+
+.skin-nes .pause {
+  font-size: 14px;
+  color: var(--c2);
+}
+
+.skin-nes .fx-2 {
+  display: block;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 2px, rgba(0, 0, 0, 0) 2px 4px);
+}
+
+.skin-nes .fx-3 {
+  display: block;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+}

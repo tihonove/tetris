@@ -1,0 +1,194 @@
+/* H · Dot-matrix LCD: a grey handheld shell around a four-shade green screen, Silkscreen. */
+
+.skin-lcd {
+  background: #d9d5cc;
+  font-family: 'Silkscreen', monospace;
+  color: #0f380f;
+  --curtain: #0f380f;
+}
+
+.skin-lcd .shell {
+  inset: 10px;
+  border-radius: 10px 10px 36px 10px;
+  background: #4a4a4a;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.12), 0 6px 0 #2e2e2e, 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.skin-lcd .shell::before, .skin-lcd .shell::after {
+  position: absolute;
+  top: 14px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #b8b8b8;
+  line-height: 12px;
+}
+
+.skin-lcd .shell::before {
+  content: 'DOT MATRIX WITH STEREO SOUND';
+  left: 34px;
+}
+
+.skin-lcd .shell::after {
+  content: 'BATTERY';
+  right: 34px;
+  padding-left: 16px;
+  background: radial-gradient(circle at 4px 6px, #e3342f 0 4px, rgba(227, 52, 47, 0.5) 4px 6px, transparent 6px);
+}
+
+.skin-lcd .screen {
+  inset: 38px 10px 10px;
+  background: #9bbc0f;
+  box-shadow: inset 0 0 0 2px #7f9a0c, inset 0 4px 12px rgba(15, 56, 15, 0.35);
+}
+
+.skin-lcd .hud {
+  gap: 36px;
+  padding: 6px 20px;
+}
+
+.skin-lcd .col-left, .skin-lcd .col-right {
+  width: 190px;
+  gap: 16px;
+}
+
+.skin-lcd .col-mid {
+  gap: 4px;
+}
+
+.skin-lcd .block {
+  border: 3px solid #0f380f;
+}
+
+.skin-lcd .lines {
+  border: none;
+  gap: 0;
+}
+
+.skin-lcd .lines .lbl::after {
+  content: '-';
+}
+
+.skin-lcd .board {
+  padding: 2px;
+}
+
+.skin-lcd .lbl {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.skin-lcd .val {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.skin-lcd .lines .lbl, .skin-lcd .lines .val {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.skin-lcd .level .val {
+  font-size: 22px;
+}
+
+.skin-lcd .stats {
+  gap: 10px;
+  padding: 14px 12px;
+}
+
+.skin-lcd .stat .num {
+  font-size: 14px;
+}
+
+.skin-lcd .m-grid {
+  width: 48px;
+}
+
+.skin-lcd .score, .skin-lcd .next, .skin-lcd .level {
+  padding: 12px;
+  gap: 2px;
+}
+
+.skin-lcd .score .lbl + .val + .lbl {
+  margin-top: 8px;
+}
+
+.skin-lcd .next {
+  gap: 10px;
+}
+
+.skin-lcd .n-grid {
+  width: 120px;
+  gap: 0;
+}
+
+.skin-lcd .next {
+  border-width: 5px;
+  background: rgba(15, 56, 15, 0.08);
+}
+
+.skin-lcd .next .lbl {
+  font-weight: 700;
+}
+
+.skin-lcd .c.e {
+  box-shadow: inset 0 0 0 1px rgba(15, 56, 15, 0.07);
+}
+
+.skin-lcd .c.k1 {
+  background: #0f380f;
+  box-shadow: inset 0 0 0 3px #0f380f, inset 0 0 0 6px #9bbc0f, inset 0 0 0 30px #0f380f;
+}
+
+.skin-lcd .c.k3 {
+  background: #306230;
+  box-shadow: inset 0 0 0 3px #0f380f;
+}
+
+.skin-lcd .c.k2 {
+  background: #9bbc0f;
+  box-shadow: inset 0 0 0 3px #0f380f, inset 0 0 0 7px #9bbc0f, inset 0 0 0 30px #306230;
+}
+
+.skin-lcd .c.act {
+  box-shadow: inset 0 0 0 3px #0f380f, inset 0 0 0 6px #9bbc0f, inset 0 0 0 30px #0f380f, 0 0 0 1px rgba(15, 56, 15, 0.35);
+}
+
+.skin-lcd .c.ghost {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px rgba(15, 56, 15, 0.35);
+}
+
+.skin-lcd .m.k1 { background: #0f380f; }
+.skin-lcd .m.k3 { background: #306230; }
+.skin-lcd .m.k2 { box-shadow: inset 0 0 0 2px #0f380f; }
+
+.skin-lcd .n.k1 {
+  background: #0f380f;
+  box-shadow: inset 0 0 0 3px #0f380f, inset 0 0 0 6px #9bbc0f, inset 0 0 0 30px #0f380f;
+}
+
+.skin-lcd .n.k3 {
+  background: #306230;
+  box-shadow: inset 0 0 0 3px #0f380f;
+}
+
+.skin-lcd .n.k2 {
+  background: #9bbc0f;
+  box-shadow: inset 0 0 0 3px #0f380f, inset 0 0 0 7px #9bbc0f, inset 0 0 0 30px #306230;
+}
+
+.skin-lcd .pause {
+  font-size: 16px;
+}
+
+.skin-lcd .fx-2 {
+  display: block;
+  background:
+    repeating-linear-gradient(0deg, rgba(15, 56, 15, 0.08) 0 1px, rgba(0, 0, 0, 0) 1px 3px),
+    repeating-linear-gradient(90deg, rgba(15, 56, 15, 0.08) 0 1px, rgba(0, 0, 0, 0) 1px 3px);
+}
+
+.skin-lcd.flash .grid {
+  box-shadow: 0 0 0 3px #0f380f;
+}

@@ -1,0 +1,167 @@
+/* F · Toy / Tactile: light ground, white cards, glossy rounded plastic blocks, Nunito. */
+
+.skin-toy {
+  background: #eef1f7;
+  font-family: 'Nunito', sans-serif;
+  color: #1f2740;
+  --curtain: #8a93ab;
+}
+
+.skin-toy .hud {
+  gap: 36px;
+}
+
+.skin-toy .col-left, .skin-toy .col-right {
+  width: 200px;
+  gap: 16px;
+}
+
+.skin-toy .block {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset, 0 10px 30px rgba(40, 50, 90, 0.1), 0 1px 2px rgba(40, 50, 90, 0.08);
+}
+
+.skin-toy .lines {
+  background: none;
+  box-shadow: none;
+  gap: 10px;
+}
+
+.skin-toy .board {
+  padding: 10px;
+  border-radius: 22px;
+  background: #d9dfec;
+  box-shadow: inset 0 3px 8px rgba(40, 50, 90, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.skin-toy .stats, .skin-toy .score, .skin-toy .next, .skin-toy .level {
+  padding: 20px;
+}
+
+.skin-toy .lbl {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: #8a93ab;
+}
+
+.skin-toy .val {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.skin-toy .lines .val {
+  font-size: 30px;
+}
+
+.skin-toy .score .lbl + .val + .lbl {
+  margin-top: 12px;
+}
+
+.skin-toy .next {
+  gap: 14px;
+}
+
+.skin-toy .n-grid {
+  width: 128px;
+  gap: 2px;
+}
+
+.skin-toy .next {
+  background: #f4eeff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset, 0 0 0 3px #a86bf5, 0 10px 30px rgba(168, 107, 245, 0.25);
+}
+
+.skin-toy .next .lbl {
+  color: #a86bf5;
+}
+
+.skin-toy .level {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skin-toy .level .val {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #a86bf5;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -4px 0 rgba(0, 0, 0, 0.18), 0 4px 10px rgba(168, 107, 245, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.skin-toy .stat .num {
+  font-size: 16px;
+  font-weight: 900;
+  color: #5b647d;
+}
+
+.skin-toy .m-grid {
+  width: 52px;
+  gap: 2px;
+}
+
+.skin-toy .m {
+  border-radius: 3px;
+}
+
+.skin-toy .t-I { --p: #2bb3f0; }
+.skin-toy .t-O { --p: #ffc63a; }
+.skin-toy .t-T { --p: #a86bf5; }
+.skin-toy .t-S { --p: #45d16b; }
+.skin-toy .t-Z { --p: #f2555a; }
+.skin-toy .t-J { --p: #3d6bf5; }
+.skin-toy .t-L { --p: #ff8e3c; }
+
+.skin-toy .c {
+  border: 2px solid transparent;
+  border-radius: 7px;
+  background-clip: padding-box;
+}
+
+.skin-toy .c.k1, .skin-toy .c.k2, .skin-toy .c.k3 {
+  background-color: var(--p, #a86bf5);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.55), inset 0 -4px 0 rgba(0, 0, 0, 0.18), 0 2px 3px rgba(20, 30, 60, 0.25);
+}
+
+.skin-toy .c.act {
+  transform: translateY(-3px);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.65), inset 0 -4px 0 rgba(0, 0, 0, 0.18), 0 8px 14px rgba(20, 30, 60, 0.35);
+  z-index: 1;
+}
+
+.skin-toy .c.ghost {
+  background: transparent;
+  border: 2px dashed rgba(168, 107, 245, 0.6);
+  box-shadow: none;
+}
+
+.skin-toy .m.k1, .skin-toy .m.k2, .skin-toy .m.k3 {
+  background: var(--p, #a86bf5);
+}
+
+.skin-toy .n {
+  border-radius: 7px;
+}
+
+.skin-toy .n.k1, .skin-toy .n.k2, .skin-toy .n.k3 {
+  background: var(--p, #a86bf5);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(0, 0, 0, 0.18), 0 2px 3px rgba(20, 30, 60, 0.25);
+}
+
+.skin-toy .pause {
+  font-weight: 900;
+  color: #a86bf5;
+}
+
+.skin-toy.flash .grid {
+  box-shadow: 0 0 0 4px #ffc63a, 0 0 30px rgba(255, 198, 58, 0.8);
+}

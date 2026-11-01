@@ -1,0 +1,190 @@
+/* Shared layout of every skin: a 960x720 stage, three HUD columns around the board.
+   Skins only restyle; the class names here are the contract with SkinScreen.tsx. */
+
+.skin {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  user-select: none;
+  --curtain: #888;
+}
+
+.skin *, .skin *::before, .skin *::after {
+  box-sizing: border-box;
+}
+
+.skin .shell,
+.skin .screen {
+  position: absolute;
+  inset: 0;
+}
+
+.skin .screen {
+  overflow: hidden;
+}
+
+.skin .hud {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+.skin .col {
+  display: flex;
+  flex-direction: column;
+}
+
+.skin .col-left, .skin .col-right {
+  width: 196px;
+  gap: 18px;
+}
+
+.skin .col-mid {
+  align-items: center;
+  gap: 14px;
+}
+
+.skin .block {
+  position: relative;
+}
+
+.skin .lbl, .skin .val {
+  display: block;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Statistics: seven rows of silhouette + counter. */
+.skin .stats {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 16px;
+}
+
+.skin .stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.skin .m-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 50px;
+  gap: 1px;
+}
+
+.skin .m {
+  width: 11px;
+  height: 11px;
+}
+
+/* Lines: label and value on one row above the board. */
+.skin .lines {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* The board. */
+.skin .board {
+  padding: 8px;
+}
+
+.skin .grid {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-auto-rows: 30px;
+  width: 300px;
+  height: 600px;
+}
+
+.skin .c {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.skin .c.curtain {
+  background: var(--curtain);
+}
+
+.skin.paused .grid .c {
+  visibility: hidden;
+}
+
+.skin .pause {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 4px;
+  font-size: 20px;
+}
+
+/* Right column. */
+.skin .score, .skin .next, .skin .level {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.skin .score .lbl + .val + .lbl {
+  margin-top: 10px;
+}
+
+.skin .next {
+  gap: 12px;
+}
+
+.skin .n-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 124px;
+  gap: 1px;
+  align-self: center;
+}
+
+.skin .n {
+  width: 30px;
+  height: 30px;
+}
+
+.skin .n-off {
+  height: 61px;
+}
+
+.skin .meter {
+  display: none;
+  gap: 3px;
+  margin-top: 8px;
+}
+
+.skin .meter .seg {
+  flex: 1;
+  height: 3px;
+}
+
+/* Decorative layers, enabled per skin. */
+.skin .fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+}
+
+/* Tetris flash: four lines going. */
+.skin.flash .grid {
+  box-shadow: 0 0 0 4px #fff, 0 0 40px rgba(255, 255, 255, 0.8);
+}

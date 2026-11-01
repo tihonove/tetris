@@ -1,0 +1,135 @@
+/* D · Synthwave: violet night, a perspective grid below the horizon, magenta frames,
+   saturated colours per piece with a dark bottom bevel. */
+
+.skin-synthwave {
+  background: #0d0620;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff6fb;
+  --curtain: #ff2bd6;
+}
+
+/* Horizon and grid floor. */
+.skin-synthwave .fx-1 {
+  display: block;
+  inset: auto;
+  left: -480px;
+  right: -480px;
+  top: 420px;
+  height: 300px;
+  border-top: 2px solid rgba(255, 43, 214, 0.6);
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 43, 214, 0.25) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg, rgba(255, 43, 214, 0.25) 0 1px, transparent 1px 40px);
+  transform: perspective(240px) rotateX(55deg);
+  transform-origin: 50% 0;
+}
+
+.skin-synthwave .fx-2 {
+  display: block;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0 2px, rgba(0, 0, 0, 0) 2px 4px);
+}
+
+.skin-synthwave .block {
+  border: 2px solid #ff2bd6;
+  box-shadow: 0 0 16px rgba(255, 43, 214, 0.6), inset 0 0 16px rgba(255, 43, 214, 0.15);
+  background: rgba(13, 6, 32, 0.85);
+}
+
+.skin-synthwave .stats {
+  gap: 13px;
+}
+
+.skin-synthwave .lbl {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #19e6ff;
+  text-shadow: 0 0 8px rgba(25, 230, 255, 0.7);
+}
+
+.skin-synthwave .val {
+  font-size: 26px;
+  letter-spacing: 0;
+  text-shadow: 0 0 10px rgba(255, 43, 214, 0.8);
+}
+
+.skin-synthwave .level .val {
+  font-size: 36px;
+}
+
+.skin-synthwave .stat .num {
+  font-size: 18px;
+}
+
+.skin-synthwave .lines {
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-family: 'Audiowide', sans-serif;
+  gap: 12px;
+}
+
+.skin-synthwave .lines .lbl, .skin-synthwave .lines .val {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 22px;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: -2px 0 #19e6ff, 2px 0 #ff2bd6;
+}
+
+.skin-synthwave .grid {
+  background: #0a0419;
+}
+
+.skin-synthwave .c.e {
+  box-shadow: inset 0 0 0 1px rgba(255, 43, 214, 0.07);
+}
+
+.skin-synthwave .t-I { --p: #19e6ff; --g: 25, 230, 255; }
+.skin-synthwave .t-O { --p: #ffe14d; --g: 255, 225, 77; }
+.skin-synthwave .t-T { --p: #ff2bd6; --g: 255, 43, 214; }
+.skin-synthwave .t-S { --p: #39ff88; --g: 57, 255, 136; }
+.skin-synthwave .t-Z { --p: #ff4d6d; --g: 255, 77, 109; }
+.skin-synthwave .t-J { --p: #7c5cff; --g: 124, 92, 255; }
+.skin-synthwave .t-L { --p: #ff8a1f; --g: 255, 138, 31; }
+
+.skin-synthwave .c.k1, .skin-synthwave .c.k2, .skin-synthwave .c.k3 {
+  background: var(--p, #ff2bd6);
+  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 10px rgba(var(--g, 255, 43, 214), 0.45);
+}
+
+.skin-synthwave .c.act {
+  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.35), inset 0 0 0 2px #fff, 0 0 24px rgba(255, 43, 214, 0.9), 0 0 60px rgba(255, 43, 214, 0.4);
+  z-index: 1;
+}
+
+.skin-synthwave .c.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 43, 214, 0.5);
+  box-shadow: inset 0 0 12px rgba(255, 43, 214, 0.25);
+}
+
+.skin-synthwave .m.k1, .skin-synthwave .m.k2, .skin-synthwave .m.k3 {
+  background: var(--p, #ff2bd6);
+}
+
+.skin-synthwave .next {
+  border-color: #19e6ff;
+  box-shadow: 0 0 20px rgba(25, 230, 255, 0.55), inset 0 0 16px rgba(25, 230, 255, 0.15);
+}
+
+.skin-synthwave .next .lbl {
+  color: #fff;
+  text-shadow: -2px 0 #19e6ff, 2px 0 #ff2bd6;
+}
+
+.skin-synthwave .n.k1, .skin-synthwave .n.k2, .skin-synthwave .n.k3 {
+  background: var(--p, #ff2bd6);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.35), 0 0 12px rgba(var(--g, 255, 43, 214), 0.6);
+}
+
+.skin-synthwave .pause {
+  font-family: 'Audiowide', sans-serif;
+  color: #fff;
+  text-shadow: -2px 0 #19e6ff, 2px 0 #ff2bd6;
+}

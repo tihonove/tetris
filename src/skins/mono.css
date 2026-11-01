@@ -1,0 +1,183 @@
+/* C · Mono Swiss: warm paper, black blocks, one red accent for the falling piece,
+   big numerals, no panels. The HUD becomes a grid so blocks sit in different columns. */
+
+.skin-mono {
+  background: #f2f1ec;
+  font-family: 'Inter Tight', sans-serif;
+  color: #141414;
+  --curtain: #6b6a64;
+}
+
+.skin-mono .hud {
+  display: grid;
+  grid-template-columns: 220px 300px 220px;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    'lines board next'
+    'score board stats'
+    'level board stats';
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 56px 72px;
+  gap: 0;
+}
+
+.skin-mono .col {
+  display: contents;
+}
+
+.skin-mono .lines { grid-area: lines; align-self: start; }
+.skin-mono .score { grid-area: score; align-self: center; }
+.skin-mono .level { grid-area: level; align-self: end; }
+.skin-mono .board { grid-area: board; align-self: center; }
+.skin-mono .next { grid-area: next; align-self: start; }
+.skin-mono .stats { grid-area: stats; align-self: end; }
+
+.skin-mono .block {
+  padding: 0;
+}
+
+.skin-mono .lbl {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b6a64;
+}
+
+.skin-mono .val {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+
+.skin-mono .lines {
+  flex-direction: column;
+  gap: 0;
+}
+
+.skin-mono .score .lbl + .val + .lbl {
+  margin-top: 10px;
+}
+
+.skin-mono .level .val {
+  color: #ff3b1f;
+}
+
+.skin-mono .next, .skin-mono .stats {
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.skin-mono .stats {
+  gap: 12px;
+}
+
+.skin-mono .n-grid {
+  width: 120px;
+  gap: 0;
+  align-self: flex-end;
+}
+
+.skin-mono .next .lbl {
+  color: #ff3b1f;
+  font-weight: 800;
+}
+
+.skin-mono .stat {
+  flex-direction: row-reverse;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.skin-mono .stat .num {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b6a64;
+  font-variant-numeric: tabular-nums;
+}
+
+.skin-mono .m-grid {
+  width: 40px;
+  gap: 0;
+}
+
+.skin-mono .m {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #f2f1ec;
+}
+
+.skin-mono .m.e {
+  border-color: transparent;
+}
+
+.skin-mono .m.k1, .skin-mono .m.k2, .skin-mono .m.k3,
+.skin-mono .n.k1, .skin-mono .n.k2, .skin-mono .n.k3 {
+  background: #141414;
+}
+
+.skin-mono .n {
+  border: 2px solid #f2f1ec;
+}
+
+.skin-mono .n.e {
+  border-color: transparent;
+}
+
+.skin-mono .board {
+  padding: 0;
+}
+
+.skin-mono .grid {
+  outline: 2px solid #f2f1ec;
+}
+
+.skin-mono .c {
+  border: 2px solid #f2f1ec;
+}
+
+.skin-mono .c.e {
+  background: #e3e1d8;
+}
+
+.skin-mono .c.k1, .skin-mono .c.k2, .skin-mono .c.k3 {
+  background: #141414;
+}
+
+.skin-mono .c.act {
+  background: #ff3b1f;
+}
+
+.skin-mono .c.ghost {
+  background: #e3e1d8;
+  box-shadow: inset 0 0 0 2px #ff3b1f;
+}
+
+.skin-mono .pause {
+  font-weight: 800;
+  color: #ff3b1f;
+}
+
+.skin-mono.flash .grid {
+  box-shadow: 0 0 0 4px #ff3b1f;
+}
+
+/* Score is the big number; Top sits under it, smaller. */
+.skin-mono .score .lbl:nth-child(1) { order: 3; margin-top: 10px; }
+.skin-mono .score .val:nth-child(2) { order: 4; font-size: 20px; letter-spacing: -0.5px; }
+.skin-mono .score .lbl:nth-child(3) { order: 1; margin-top: 0; }
+.skin-mono .score .val:nth-child(4) { order: 2; font-size: 56px; letter-spacing: -3px; }
+
+/* NEXT reads as a panel: the silhouette sits on a grey plate. */
+.skin-mono .next .n-grid, .skin-mono .next .n-off {
+  width: 136px;
+  padding: 8px;
+  background: #e3e1d8;
+  box-sizing: content-box;
+}
+.skin-mono .next .n-off {
+  height: 60px;
+  width: 120px;
+}

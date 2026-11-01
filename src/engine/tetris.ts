@@ -43,6 +43,12 @@ export class NesTetris {
   // ---- Game RAM -------------------------------------------------------
   /** $0400 page plus the $0500 page: a completed top row shifts bytes into the second page. */
   readonly playfield = new Uint8Array(512);
+  /**
+   * Piece type (T J Z O S L I = 0..6, 0xff = none) of every locked block, parallel to
+   * `playfield`. Not part of the original program: skins that colour blocks per piece type
+   * need it, the NES only keeps the tile.
+   */
+  readonly playfieldTypes = new Uint8Array(512).fill(0xff);
   tetriminoX = 5;
   tetriminoY = 0;
   currentPiece = ORI_HIDDEN;
@@ -84,6 +90,8 @@ export class NesTetris {
   readonly spritePalette = new Uint8Array(16);
   /** Sprites shown this frame, in OAM order. */
   oam: Sprite[] = [];
+  /** Piece type per shown playfield cell (row*10+col), copied to VRAM together with the tiles. */
+  readonly shownTypes = new Uint8Array(200).fill(0xff);
   /** PPUMASK background bit: cleared while paused. */
   backgroundVisible = true;
   private renderMode = RENDER_MODE_PLAY;
@@ -138,6 +146,8 @@ export class NesTetris {
     this.updatePaletteForLevel();
 
     this.playfield.fill(TILE_EMPTY);
+    this.playfieldTypes.fill(0xff);
+    this.shownTypes.fill(0xff);
     this.statsByType.fill(0);
     this.tetriminoX = 5;
     this.tetriminoY = 0;
@@ -372,6 +382,7 @@ export class NesTetris {
       const xOff = ORIENTATION_TABLE[o + i * 3 + 2];
       const idx = ((yOff * 10) + base + xOff) & 0xff;
       this.playfield[idx] = tile;
+      this.playfieldTypes[idx] = TYPE_FROM_ORIENTATION[this.currentPiece];
     }
     this.lineIndex = 0;
     this.updatePlayfield();
@@ -396,9 +407,10 @@ export class NesTetris {
       // wraps and copies the whole page into the next one; the 512-byte buffer absorbs that.
       for (let y = (base - 1) & 0xff; ; y = (y - 1) & 0xff) {
         this.playfield[y + 10] = this.playfield[y];
+        this.playfieldTypes[y + 10] = this.playfieldTypes[y];
         if (y === 0) break;
       }
-      for (let i = 0; i < 10; i++) this.playfield[i] = TILE_EMPTY;
+      for (let i = 0; i < 10; i++) { this.playfield[i] = TILE_EMPTY; this.playfieldTypes[i] = 0xff; }
       this.currentPiece = ORI_HIDDEN;
     } else {
       this.completedRow[this.lineIndex] = 0;
@@ -679,7 +691,10 @@ export class NesTetris {
     const row = this.vramRow;
     const dst = playfieldRowVram(row);
     const src = row * 10;
-    for (let i = 0; i < 10; i++) this.nametable[dst + i] = this.playfield[src + i];
+    for (let i = 0; i < 10; i++) {
+      this.nametable[dst + i] = this.playfield[src + i];
+      this.shownTypes[src + i] = this.playfieldTypes[src + i];
+    }
     this.vramRow++;
     if (!(((this.vramRow - 0x14) & 0xff) & 0x80)) this.vramRow = 0x20; // reached row 20
   }
