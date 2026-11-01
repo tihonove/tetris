@@ -19,22 +19,14 @@ The same engine also runs in a terminal (Node 20+, a truecolor terminal, and a
 font with the Unicode block elements):
 
 ```
-npm run tui                # big picture when the terminal is at least 128x61
-npm run tui -- --small     # one tile per two cells: 64x30, fullwidth letters
-npm run tui -- --ascii     # small picture with plain ASCII letters
-npm run tui -- --octants   # big picture drawn with Unicode 16 octants
+npm run tui              # fullwidth letters, needs CJK-capable font fallback
+npm run tui -- --ascii   # plain ASCII letters
 npm run tui -- --level 9
 ```
 
-Big picture: every cell shows a 2x4 pixel block of the real 256x240 frame, so a
-tile is 4x2 cells, the screen is 128x60 cells and blocks are square. Each cell
-gets two colours; patterns that are a Block Elements glyph are drawn solid and the
-rest (font, diagonals, highlights) use Braille dots. `--octants` draws every
-pattern solid with the Unicode 16 octant characters, which needs a font that has
-them (GNU Unifont 16, recent Iosevka or Cascadia builds).
-
-Small picture: each NES tile is two cells (64x30). Tile graphics are converted to
-block-element glyphs; borders use box drawing, the statistics icons are hand-drawn. Terminals
+Each NES tile is two terminal cells, so the 256x240 picture becomes 64x30
+characters and blocks stay square. Tile graphics are converted to block-element
+glyphs; borders use box drawing, the statistics icons are hand-drawn. Terminals
 report key presses but not releases, so holding a key is approximated: a
 direction stays held while the OS key repeat keeps sending events (DAS then runs
 at the original 6-frame cadence), each Down event soft-drops one row, and

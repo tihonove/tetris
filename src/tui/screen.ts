@@ -4,25 +4,11 @@
  */
 import type { NesTetris } from '../engine/tetris';
 import { rgb, tileCells, type Cell, type TermStyle } from './glyphs';
-import { cellify, HIRES_COLS, HIRES_ROWS } from './hires';
-import { HEIGHT, renderPixels, WIDTH } from './pixels';
 
 export const COLS = 64;
 export const ROWS = 30;
 
-export function screenSize(style: TermStyle): { cols: number; rows: number } {
-  return style.mode === 'big' ? { cols: HIRES_COLS, rows: HIRES_ROWS } : { cols: COLS, rows: ROWS };
-}
-
-const pixelBuffer = new Uint8Array(WIDTH * HEIGHT);
-let hiresRows: Cell[][] = [];
-
 export function composeCells(game: NesTetris, style: TermStyle): Cell[][] {
-  if (style.mode === 'big') {
-    renderPixels(game, pixelBuffer);
-    hiresRows = cellify(pixelBuffer, style.octants, hiresRows);
-    return hiresRows;
-  }
   const rows: Cell[][] = [];
   const bg = game.bgPalette;
   const blank: Cell = { ch: ' ', fg: -1, bg: -1 };

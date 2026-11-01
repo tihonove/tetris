@@ -15,12 +15,8 @@ export interface Cell {
 }
 
 export interface TermStyle {
-  /** Use fullwidth Unicode letters for the game's text tiles (small mode). */
+  /** Use fullwidth Unicode letters for the game's text tiles. */
   fullwidth: boolean;
-  /** 'big': 128x60 cells, 2x4 pixels per cell; 'small': 64x30 cells, one tile per two cells. */
-  mode: 'small' | 'big';
-  /** Big mode: draw every pattern with Unicode 16 octants instead of blocks + Braille. */
-  octants: boolean;
 }
 
 type Mask = number; // 32 bits: bit (y*4 + x) for a 4x8 half tile
