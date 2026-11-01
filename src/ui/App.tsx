@@ -115,6 +115,9 @@ export function App() {
     g.topScore[0] = top[0]; g.topScore[1] = top[1]; g.topScore[2] = top[2];
     g.startGame(0);
     g.playState = 0x09; // idle: show the empty board without running the game
+    g.currentPiece = 0x13;
+    g.frame(0); // one NMI so the counters are drawn
+    g.oam = [];
     gameRef.current = g;
   }
   const game = gameRef.current;

@@ -13,6 +13,26 @@ npm test         # vitest: timing/scoring/randomizer tests
 npm run build
 ```
 
+## Console version
+
+The same engine also runs in a terminal (Node 20+, a truecolor terminal, and a
+font with the Unicode block elements):
+
+```
+npm run tui              # fullwidth letters, needs CJK-capable font fallback
+npm run tui -- --ascii   # plain ASCII letters
+npm run tui -- --level 9
+```
+
+Each NES tile is two terminal cells, so the 256x240 picture becomes 64x30
+characters and blocks stay square. Tile graphics are converted to block-element
+glyphs; borders use box drawing, the statistics icons are hand-drawn. Terminals
+report key presses but not releases, so holding a key is approximated: a
+direction stays held while the OS key repeat keeps sending events (DAS then runs
+at the original 6-frame cadence), each Down event soft-drops one row, and
+rotations ignore auto-repeat. Lower your OS repeat delay (for example
+`xset r rate 200 30`) to get closer to the NES feel. No sound in the console.
+
 ## Controls
 
 | NES        | Keyboard                | Gamepad (standard mapping) |
@@ -73,6 +93,7 @@ and the 300000+ ending animation.
 - `src/render/view.ts`, `src/render/SkinScreen.tsx` - skin-neutral view of the state, DOM layout.
 - `src/skins/` - skin definitions and one CSS file per skin.
 - `src/ui/App.tsx` - loop, input, level select, options.
+- `src/tui/` - console version: glyph mapping, screen composition, key handling, loop.
 
 Sources: CelestialAmber/TetrisNESDisasm (ejona86/taus), meatfighter.com/nintendotetrisai,
 tetris.wiki, nesdev.org.
